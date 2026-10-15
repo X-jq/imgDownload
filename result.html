@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>图片提取结果 · 电商图片提取下载器</title>
+  <link rel="stylesheet" href="result.css" />
+</head>
+<body>
+  <header class="appbar">
+    <div class="appbar__inner">
+      <div class="brand">
+        <span class="brand__logo" aria-hidden="true">🖼️</span>
+        <div class="brand__text">
+          <h1>图片提取结果</h1>
+          <p class="brand__sub" id="sourceInfo">—</p>
+        </div>
+      </div>
+      <span class="count-chip" id="countChip">0 张</span>
+    </div>
+  </header>
+
+  <main class="main">
+    <div class="toolbar">
+      <div class="toolbar__left">
+        <label class="checkbox">
+          <input type="checkbox" id="selectAll" checked />
+          <span class="checkbox__box"></span>
+          <span>全选</span>
+        </label>
+        <span class="toolbar__hint">已选 <b id="selectedCount">0</b> 张</span>
+      </div>
+      <div class="toolbar__right">
+        <button class="btn btn--ghost" id="clearBtn" type="button">清空选择</button>
+        <button class="btn btn--primary" id="downloadBtn" type="button">下载所选图片</button>
+      </div>
+    </div>
+
+    <section id="grid" class="grid" aria-label="图片列表"></section>
+
+    <div id="empty" class="empty" hidden>
+      <div class="empty__icon" aria-hidden="true">🕸️</div>
+      <p>没有可展示的图片，请回到电商详情页点击「获取图片」重试。</p>
+    </div>
+  </main>
+
+  <div id="lightbox" class="lightbox" hidden>
+    <button class="lightbox__close" id="lightboxClose" aria-label="关闭预览">×</button>
+    <img id="lightboxImg" alt="图片预览" />
+  </div>
+
+  <div id="toast" class="toast" role="status"></div>
+
+  <div id="progress" class="progress" hidden>
+    <div class="progress__card">
+      <span class="progress__title" id="progressText">下载中…</span>
+      <div class="progress__track"><div class="progress__bar" id="progressBar"></div></div>
+    </div>
+  </div>
+
+  <script src="result.js"></script>
+</body>
+</html>
