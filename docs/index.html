@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>电商图片提取下载器 - 一键抓取商品图，批量下载 PNG</title>
+  <meta name="description" content="电商图片提取下载器是一款 Chrome 扩展插件，帮助电商从业者一键抓取淘宝、京东、拼多多商家版商品详情页的全部图片，集中预览、勾选并批量下载为 PNG 格式。" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- 顶部导航栏 -->
+  <header class="site-header" id="top">
+    <div class="container nav-bar">
+      <a class="brand" href="#top">
+        <img class="brand__logo" src="icon128.png" alt="电商图片提取下载器 Logo" />
+        <span class="brand__name">电商图片提取下载器</span>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="展开菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+
+      <nav class="nav" id="navMenu">
+        <a class="nav__link" href="#about">产品介绍</a>
+        <a class="nav__link" href="#features">核心功能</a>
+        <a class="nav__link" href="#install">安装步骤</a>
+        <a class="nav__link nav__link--cta" href="#download">立即使用</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero 首屏 -->
+    <section class="hero">
+      <div class="container hero__inner">
+        <span class="hero__badge">Chrome 扩展插件 · Manifest V3</span>
+        <h1 class="hero__title">电商图片<span class="grad-text">一键提取</span>下载器</h1>
+        <p class="hero__slogan">浏览商品详情页，点一下按钮，页面所有商品图片自动抓取、集中预览、批量下载为 PNG。</p>
+        <p class="hero__sub">覆盖淘宝 / 天猫、京东、拼多多商家版，告别一张张手动存图的低效日常。</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary" href="#install">查看安装步骤</a>
+          <a class="btn btn--ghost" href="#features">了解核心功能</a>
+        </div>
+        <ul class="hero__stats">
+          <li class="hero__stat"><strong>3 大平台</strong><span>主流电商全覆盖</span></li>
+          <li class="hero__stat"><strong>一键</strong><span>抓取页面全部图片</span></li>
+          <li class="hero__stat"><strong>PNG</strong><span>统一格式批量下载</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 产品介绍 -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="section__head">
+          <span class="section__tag">产品介绍</span>
+          <h2 class="section__title">为电商从业者打造的图片采集利器</h2>
+          <p class="section__lead">商品图分散、格式不一、逐张下载耗时费力——这是每个电商运营与美工的日常痛点。</p>
+        </div>
+
+        <div class="about-grid">
+          <article class="about-card">
+            <div class="about-card__icon">🎯</div>
+            <h3 class="about-card__title">定位清晰</h3>
+            <p class="about-card__text">面向电商运营、美工设计师以及淘宝、京东、拼多多商家版商家，专注解决商品图片收集难的问题。</p>
+          </article>
+          <article class="about-card">
+            <div class="about-card__icon">⚡</div>
+            <h3 class="about-card__title">一键直达</h3>
+            <p class="about-card__text">页面右下角悬浮「获取图片」按钮，点击即抓取，无需任何配置，装好就能用。</p>
+          </article>
+          <article class="about-card">
+            <div class="about-card__icon">🧹</div>
+            <h3 class="about-card__title">智能过滤</h3>
+            <p class="about-card__text">自动去重，剔除 logo、图标、表情、广告等非商品图片，优先保留高清原图。</p>
+          </article>
+        </div>
+
+        <div class="platforms">
+          <p class="platforms__label">支持平台</p>
+          <ul class="platforms__list">
+            <li class="platform"><span class="platform__dot platform__dot--taobao"></span>淘宝 / 天猫</li>
+            <li class="platform"><span class="platform__dot platform__dot--jd"></span>京东</li>
+            <li class="platform"><span class="platform__dot platform__dot--pdd"></span>拼多多商家版</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 核心功能 -->
+    <section class="section section--tint" id="features">
+      <div class="container">
+        <div class="section__head">
+          <span class="section__tag">核心功能</span>
+          <h2 class="section__title">七项能力，让存图更省心</h2>
+          <p class="section__lead">从抓取到导出，一条龙完成商品图片的批量整理。</p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card">
+            <span class="feature-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35M11 8v6M8 11h6"/></svg>
+            </span>
+            <h3 class="feature-card__title">悬浮按钮，点击即抓</h3>
+            <p class="feature-card__text">右下角固定「获取图片」按钮，随页面滚动悬浮，点击即触发抓取。</p>
+          </article>
+
+          <article class="feature-card">
+            <span class="feature-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 16l4.5-4.5 3 3L16 10l4 4"/><path d="M3 5h18v14H3z"/></svg>
+            </span>
+            <h3 class="feature-card__title">懒加载全兼容</h3>
+            <p class="feature-card__text">适配 data-src、srcset、背景图及 script 内 JSON 等常见懒加载方式。</p>
+          </article>
+
+          <article class="feature-card">
+            <span class="feature-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7l7-4z"/><path d="M9 12l2 2 4-4"/></svg>
+            </span>
+            <h3 class="feature-card__title">智能去重过滤</h3>
+            <p class="feature-card__text">过滤 logo、图标、表情、广告等干扰项，优先提取高清原图。</p>
+          </article>
+
+          <article class="feature-card">
+            <span class="feature-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><rect x="7" y="7" width="10" height="10" rx="1"/></svg>
+            </span>
+            <h3 class="feature-card__title">集中预览勾选</h3>
+            <p class="feature-card__text">新标签页响应式网格展示，支持全选 / 清空 / 单张勾选与放大预览。</p>
+          </article>
+
+          <article class="feature-card">
+            <span class="feature-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12M7 8l5 5 5-5"/><path d="M4 19h16"/></svg>
+            </span>
+            <h3 class="feature-card__title">统一转 PNG 下载</h3>
+            <p class="feature-card__text">跨域抓取 + canvas 重编码，JPG / WebP 统一转为 PNG 后批量下载。</p>
+          </article>
+
+          <article class="feature-card">
+            <span class="feature-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 8l-9-5-9 5v8l9 5 9-5V8z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg>
+            </span>
+            <h3 class="feature-card__title">一键打包 ZIP</h3>
+            <p class="feature-card__text">勾选图片一次性压缩为一个 ZIP 包，也可保留逐张 PNG 下载。</p>
+          </article>
+
+          <article class="feature-card">
+            <span class="feature-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 8v4l3 3"/><circle cx="12" cy="12" r="9"/><path d="M8 5l4 4 4-4"/></svg>
+            </span>
+            <h3 class="feature-card__title">进度与结果反馈</h3>
+            <p class="feature-card__text">下载进度实时提示，完成后明确展示成功与失败数量。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- 安装步骤 -->
+    <section class="section" id="install">
+      <div class="container">
+        <div class="section__head">
+          <span class="section__tag">安装步骤</span>
+          <h2 class="section__title">三步装好，立即可用</h2>
+          <p class="section__lead">以 Chrome 开发者模式加载本地扩展，无需上架商店。</p>
+        </div>
+
+        <ol class="steps">
+          <li class="step">
+            <span class="step__num">1</span>
+            <div class="step__body">
+              <h3 class="step__title">打开扩展管理页</h3>
+              <p class="step__text">在 Chrome 地址栏输入 <code>chrome://extensions/</code> 并回车。</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="step__num">2</span>
+            <div class="step__body">
+              <h3 class="step__title">开启开发者模式</h3>
+              <p class="step__text">打开页面右上角的「开发者模式」开关。</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="step__num">3</span>
+            <div class="step__body">
+              <h3 class="step__title">加载已解压的扩展程序</h3>
+              <p class="step__text">点击左上角「加载已解压的扩展程序」，选择插件根目录（包含 <code>manifest.json</code> 的文件夹）。</p>
+            </div>
+          </li>
+          <li class="step">
+            <span class="step__num">4</span>
+            <div class="step__body">
+              <h3 class="step__title">开始使用</h3>
+              <p class="step__text">进入淘宝 / 京东 / 拼多多商家版的商品详情页，右下角会出现「获取图片」按钮，点击即可抓取。</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 下载 / CTA -->
+    <section class="cta" id="download">
+      <div class="container cta__inner">
+        <h2 class="cta__title">准备好告别手动存图了吗？</h2>
+        <p class="cta__text">安装插件，让商品图片的抓取与导出一次到位。</p>
+        <a class="btn btn--primary btn--lg" href="#install">返回查看安装步骤</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- 页脚 -->
+  <footer class="site-footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <img class="footer__logo" src="icon128.png" alt="电商图片提取下载器 Logo" />
+        <span>电商图片提取下载器</span>
+      </div>
+      <p class="footer__copy">© 2026 电商图片提取下载器 · 一键提取淘宝、京东、拼多多商家版商品图片</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
