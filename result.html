@@ -17,25 +17,22 @@
         </div>
       </div>
       <span class="count-chip" id="countChip">0 张</span>
-    </div>
-  </header>
 
-  <main class="main">
-    <div class="toolbar">
-      <div class="toolbar__left">
+      <div class="toolbar">
         <label class="checkbox">
           <input type="checkbox" id="selectAll" checked />
           <span class="checkbox__box"></span>
           <span>全选</span>
         </label>
         <span class="toolbar__hint">已选 <b id="selectedCount">0</b> 张</span>
-      </div>
-      <div class="toolbar__right">
         <button class="btn btn--ghost" id="clearBtn" type="button">清空选择</button>
+        <button class="btn btn--outline" id="zipBtn" type="button">打包下载 ZIP</button>
         <button class="btn btn--primary" id="downloadBtn" type="button">下载所选图片</button>
       </div>
     </div>
+  </header>
 
+  <main class="main">
     <section id="grid" class="grid" aria-label="图片列表"></section>
 
     <div id="empty" class="empty" hidden>
@@ -58,6 +55,7 @@
     </div>
   </div>
 
+  <script src="lib/jszip.min.js"></script>
   <script src="result.js"></script>
 </body>
 </html>

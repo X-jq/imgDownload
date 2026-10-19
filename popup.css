@@ -26,11 +26,3 @@ body {
 .pop__sub { font-size: 12px; color: #9aa1a9; margin-top: 2px; }
 
 .pop__tip { font-size: 13px; line-height: 1.6; color: #4b5563; margin: 14px 0; }
-
-.pop__badges { display: flex; gap: 8px; }
-.pop__badges span {
-  font-size: 12px; color: #b45309;
-  background: linear-gradient(135deg, #FFF7D6 0%, #FFE9B3 100%);
-  border: 1px solid #ffe0a0;
-  padding: 5px 10px; border-radius: 999px;
-}

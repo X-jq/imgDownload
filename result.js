@@ -11,6 +11,7 @@
   const selectedCount = $('selectedCount');
   const countChip = $('countChip');
   const downloadBtn = $('downloadBtn');
+  const zipBtn = $('zipBtn');
   const clearBtn = $('clearBtn');
   const sourceInfo = $('sourceInfo');
   const toastEl = $('toast');
@@ -113,6 +114,7 @@
     countChip.textContent = `${images.length} 张`;
     selectAll.checked = images.length > 0 && sel === images.length;
     downloadBtn.disabled = sel === 0;
+    zipBtn.disabled = sel === 0;
   }
 
   // ---------- 事件 ----------
@@ -134,6 +136,7 @@
     });
 
     downloadBtn.addEventListener('click', downloadSelected);
+    zipBtn.addEventListener('click', downloadZip);
 
     lightboxClose.addEventListener('click', closeLightbox);
     lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
@@ -181,6 +184,72 @@
     setProgress(false);
     downloadBtn.disabled = false;
     showToast(fail ? `下载完成：成功 ${ok} 张，失败 ${fail} 张` : `下载完成：成功 ${ok} 张`);
+  }
+
+  // 打包下载为 ZIP：逐张经 background 转 PNG → 加入 JSZip → 生成压缩包下载
+  async function downloadZip() {
+    const idxs = [...selection].sort((a, b) => a - b);
+    if (!idxs.length) { showToast('请先选择要下载的图片'); return; }
+    if (typeof JSZip === 'undefined') { showToast('ZIP 组件未加载，请重新加载扩展'); return; }
+
+    zipBtn.disabled = true;
+    downloadBtn.disabled = true;
+    setProgress(true, 0, idxs.length);
+
+    const zip = new JSZip();
+    const baseName = safeBaseName();
+    let ok = 0;
+    let fail = 0;
+
+    for (let k = 0; k < idxs.length; k++) {
+      const img = images[idxs[k]];
+      const filename = `${baseName}_${String(k + 1).padStart(2, '0')}.png`;
+      progressText.textContent = `打包中 ${k + 1} / ${idxs.length}`;
+
+      try {
+        const res = await chrome.runtime.sendMessage({ type: 'fetchImageAsPng', url: img.url });
+        if (res && res.ok && res.dataUrl) {
+          const base64 = res.dataUrl.split(',')[1] || '';
+          if (base64) {
+            zip.file(filename, base64, { base64: true });
+            ok++;
+          } else {
+            fail++;
+          }
+        } else {
+          fail++;
+        }
+      } catch (_) {
+        fail++;
+      }
+      setProgressBar((k + 1) / idxs.length);
+      await sleep(80);
+    }
+
+    if (!ok) {
+      setProgress(false);
+      zipBtn.disabled = false;
+      downloadBtn.disabled = false;
+      showToast('打包失败：没有成功获取任何图片');
+      return;
+    }
+
+    progressText.textContent = '正在生成 ZIP 文件…';
+    setProgressBar(0.97);
+    try {
+      // PNG 本身已无损压缩，使用 STORE 避免二次压缩耗时
+      const blob = await zip.generateAsync({ type: 'blob', compression: 'STORE' });
+      const url = URL.createObjectURL(blob);
+      await chrome.downloads.download({ url, filename: `${baseName}.zip`, conflictAction: 'uniquify', saveAs: false });
+      setTimeout(() => URL.revokeObjectURL(url), 30000);
+      showToast(`打包完成：共 ${ok} 张图片${fail ? `，跳过 ${fail} 张` : ''}`);
+    } catch (e) {
+      showToast('生成 ZIP 失败：' + (e && e.message ? e.message : '未知错误'));
+    } finally {
+      setProgress(false);
+      zipBtn.disabled = false;
+      downloadBtn.disabled = false;
+    }
   }
 
   function safeBaseName() {

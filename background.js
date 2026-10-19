@@ -23,6 +23,14 @@ chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
     return true; // 异步响应
   }
 
+  if (msg && msg.type === 'fetchImageAsPng') {
+    // 仅抓图并转 PNG，返回 data URL（供结果页打包 ZIP 使用，不触发下载）
+    fetchAsPngDataUrl(msg.url)
+      .then((dataUrl) => sendResponse({ ok: true, dataUrl }))
+      .catch((e) => sendResponse({ ok: false, error: String(e && e.message || e) }));
+    return true; // 异步响应
+  }
+
   return false;
 });
 

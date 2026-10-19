@@ -82,6 +82,12 @@
 
   // ---------- 交互 ----------
   async function onGrab() {
+    // 扩展被重新加载后，旧 content script 的 chrome.* 上下文会失效，需刷新页面
+    if (!chrome.runtime || !chrome.runtime.id) {
+      showToast('扩展已更新，请刷新本页面后重试');
+      return;
+    }
+
     btn.classList.add('is-loading');
     btn.querySelector('.grab__text').textContent = '获取中…';
     showToast('正在获取图片…');
@@ -105,7 +111,12 @@
       showToast(`已获取 ${images.length} 张图片，正在打开…`);
       await chrome.runtime.sendMessage({ type: 'openResult', id });
     } catch (e) {
-      showToast('获取失败：' + (e && e.message ? e.message : '未知错误'));
+      const msg = e && e.message ? e.message : '未知错误';
+      if (/context invalidated|receiving end does not exist|extension context/i.test(msg)) {
+        showToast('扩展已更新，请刷新本页面后重试');
+      } else {
+        showToast('获取失败：' + msg);
+      }
     } finally {
       btn.classList.remove('is-loading');
       btn.querySelector('.grab__text').textContent = '获取图片';

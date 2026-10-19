@@ -15,6 +15,7 @@
 - 去重过滤，剔除 logo / icon / 表情 / 广告等非商品图，优先高清原图
 - 新标签页集中展示：响应式网格、全选 / 清空 / 勾选、放大预览（lightbox）
 - 批量下载并统一转为 PNG（经 background Service Worker 跨域抓取与 canvas 重编码）
+- 支持一键打包下载 ZIP（勾选的图片全部转为 PNG 后压缩为一个 zip 包），也可保留原有逐张 PNG 下载
 - 下载进度提示、成功 / 失败数量反馈
 
 ---
@@ -38,7 +39,7 @@
 2. 点击右下角「获取图片」按钮。
 3. 等待抓取完成，会自动打开结果页。
 4. 在结果页勾选需要的图片（默认全选）。
-5. 点击「下载所选图片」，浏览器将逐张下载 PNG 文件。
+5. 点击「下载所选图片」逐张下载 PNG，或点击「打包下载 ZIP」一次性下载压缩包。
 
 ---
 
@@ -51,9 +52,10 @@ imgdownload/
 ├── content.js           # 注入按钮 + 抓取图片（Shadow DOM 隔离样式）
 ├── result.html          # 结果页（展示 / 勾选 / 预览）
 ├── result.css           # 结果页样式（黄色渐变主题）
-├── result.js            # 结果页逻辑
+├── result.js            # 结果页逻辑（含逐张下载 + ZIP 打包）
 ├── popup.html           # 工具栏弹窗
 ├── popup.css            # 弹窗样式
+├── lib/jszip.min.js     # JSZip（本地打包，用于 ZIP 下载）
 ├── icons/               # 插件图标
 └── scripts/gen-icons.ps1 # 图标生成脚本
 ```
